@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    pull_policy: build
+    container_name: mkt-strattos-web
+    restart: always
+    expose:
+      - "80"
+    networks:
+      strattos-net:
+        aliases:
+          - mkt-strattos-web
+
+networks:
+  strattos-net:
+    external: true
