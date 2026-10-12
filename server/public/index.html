@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Strattos — Biblioteca</title>
+<link rel="icon" href="/__app/icono.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/__app/app.css">
+</head>
+<body>
+<div class="loadbar" id="loadbar" hidden><span></span></div>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#/">Strattos <span>/</span> Biblioteca</a>
+    <div class="status" id="status"></div>
+  </header>
+
+  <div class="toolbar">
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Buscar en toda la biblioteca…" autocomplete="off">
+    </label>
+    <div class="tools">
+      <select id="sort" aria-label="Ordenar">
+        <option value="recientes">Recientes</option>
+        <option value="nombre">Nombre A–Z</option>
+      </select>
+      <div class="seg" role="group" aria-label="Vista">
+        <button id="v-grid" title="Cuadrícula" aria-label="Cuadrícula"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button>
+        <button id="v-list" title="Lista" aria-label="Lista"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></button>
+      </div>
+      <button class="btn ghost" id="new-folder" data-write>+ Carpeta</button>
+      <button class="btn primary" id="upload" data-write>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-5 5m5-5 5 5M4 20h16"/></svg>Subir
+      </button>
+    </div>
+  </div>
+
+  <nav class="crumbs" id="crumbs"></nav>
+  <main id="main"><div class="empty">Cargando…</div></main>
+</div>
+
+<input type="file" id="file-input" multiple accept=".html,.htm,.pdf,.png,.jpg,.jpeg,.webp,.gif,.svg" hidden>
+<input type="file" id="replace-input" accept=".html,.htm,.pdf,.png,.jpg,.jpeg,.webp,.gif,.svg" hidden>
+
+<div class="drop" id="drop" hidden>
+  <div><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0-5 5m5-5 5 5M4 20h16"/></svg><p>Suelta para subir a <b id="drop-target"></b></p></div>
+</div>
+
+<dialog id="dlg-upload" class="dlg wide">
+  <form method="dialog" class="dlg-inner">
+    <header><h2>Subir documentos</h2><button class="x" value="cancel" aria-label="Cerrar">×</button></header>
+    <div class="queue" id="queue"></div>
+    <div class="total" id="total" hidden><div class="bar"><span></span></div><small></small></div>
+    <footer>
+      <button type="button" class="btn ghost" id="add-more">Añadir más</button>
+      <span class="grow"></span>
+      <button class="btn ghost" value="cancel" id="up-cancel">Cancelar</button>
+      <button type="button" class="btn primary" id="up-go">Subir</button>
+    </footer>
+  </form>
+</dialog>
+
+<dialog id="dlg-form" class="dlg">
+  <form method="dialog" class="dlg-inner" id="form">
+    <header><h2 id="form-title"></h2><button class="x" value="cancel" aria-label="Cerrar">×</button></header>
+    <div class="fields" id="form-fields"></div>
+    <p class="form-error" id="form-error" hidden></p>
+    <footer>
+      <span class="grow"></span>
+      <button class="btn ghost" value="cancel">Cancelar</button>
+      <button class="btn primary" id="form-ok" value="ok"></button>
+    </footer>
+  </form>
+</dialog>
+
+<div class="menu" id="menu" hidden></div>
+<div class="toasts" id="toasts"></div>
+
+<script src="/__app/app.js"></script>
+</body>
+</html>

@@ -1,17 +1,15 @@
-FROM nginx:alpine
+FROM node:22-alpine
 
-RUN mkdir -p /etc/nginx/snippets /srv/explorador /srv/contenido \
-    && rm -f /etc/nginx/conf.d/default.conf
+ENV NODE_ENV=production \
+    PORT=80 \
+    CONTENT_DIR=/app/contenido \
+    META_FILE=/app/biblioteca.json
 
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
-COPY docker/headers.conf /etc/nginx/snippets/headers.conf
-COPY docker/40-strattos-setup.sh /docker-entrypoint.d/40-strattos-setup.sh
-COPY scripts/generar-manifest.sh /usr/local/bin/generar-manifest.sh
-COPY explorador/ /srv/explorador/
-COPY contenido/ /srv/contenido/
-
-# Permisos de lectura para el worker de nginx (los archivos subidos pueden venir con 600).
-RUN chmod +x /docker-entrypoint.d/40-strattos-setup.sh /usr/local/bin/generar-manifest.sh \
-    && chmod -R a+rX /srv
+WORKDIR /app
+COPY server/ ./server/
+COPY contenido/ ./contenido/
+COPY biblioteca.json ./
 
 EXPOSE 80
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD wget -qO- http://127.0.0.1/__salud >/dev/null || exit 1
+CMD ["node", "server/server.js"]

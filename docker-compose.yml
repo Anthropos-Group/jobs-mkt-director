@@ -5,11 +5,16 @@ services:
     container_name: mkt-strattos-web
     restart: always
     environment:
-      # Contraseña del explorador (la página raíz con el listado de carpetas).
-      # Los documentos se comparten por enlace directo y no piden contraseña.
-      # Defínelas en Portainer > Stack > Environment variables.
+      # Usuario y contraseña del panel (la raíz /). Los documentos se comparten
+      # por enlace directo y no piden contraseña.
       EXPLORER_USER: ${EXPLORER_USER:-strattos}
       EXPLORER_PASSWORD: ${EXPLORER_PASSWORD:-}
+      # Token de GitHub con permiso "Contents: Read and write" sobre este repo.
+      # Sin él, el panel funciona en solo lectura.
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GITHUB_REPO: ${GITHUB_REPO:-Anthropos-Group/jobs-mkt-director}
+      GITHUB_BRANCH: ${GITHUB_BRANCH:-main}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-50}
     expose:
       - "80"
     networks:
