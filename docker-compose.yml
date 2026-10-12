@@ -4,6 +4,12 @@ services:
     pull_policy: build
     container_name: mkt-strattos-web
     restart: always
+    environment:
+      # Contraseña del explorador (la página raíz con el listado de carpetas).
+      # Los documentos se comparten por enlace directo y no piden contraseña.
+      # Defínelas en Portainer > Stack > Environment variables.
+      EXPLORER_USER: ${EXPLORER_USER:-strattos}
+      EXPLORER_PASSWORD: ${EXPLORER_PASSWORD:-}
     expose:
       - "80"
     networks:
